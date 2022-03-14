@@ -11,7 +11,9 @@ const Home = () => {
     state: { products },
     state: { cart },
   } = CartState();
-  console.log(products);
+
+  console.log(products, cart);
+
   return (
     <div className="home">
       <Filters />
