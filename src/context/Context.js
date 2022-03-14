@@ -1,7 +1,12 @@
-import React, { createContext } from "react";
+import React, { createContext, useReducer } from "react";
 import { faker } from "@faker-js/faker";
+import { CartReducer } from "./Reducer";
+import { useContext } from "react";
 
 const Cart = createContext();
+
+// renders only one type of data.
+// faker.seed(99);
 
 const Context = ({ children }) => {
   const products = [...Array(20)].map(() => ({
@@ -14,7 +19,19 @@ const Context = ({ children }) => {
     ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
   }));
 
-  return <Cart.Provider>{children}</Cart.Provider>;
+  const initialState = {
+    products: products,
+    cart: [],
+  };
+
+  const [state, dispatch] = useReducer(CartReducer, initialState);
+
+  return <Cart.Provider value={{ state, dispatch }}>{children}</Cart.Provider>;
 };
 
 export default Context;
+
+// Consume state values
+export const CartState = () => {
+  return useContext(Cart);
+};

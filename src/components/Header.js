@@ -9,7 +9,6 @@ import {
 } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import ReactDOM from "react-dom";
 import "../App.css";
 
 const Header = () => {
@@ -32,7 +31,7 @@ const Header = () => {
           <Dropdown>
             <Dropdown.Toggle variant="success">
               <FaShoppingCart />
-              <Badge>{10}</Badge>
+              <Badge className="bg-badge">{0}</Badge>
             </Dropdown.Toggle>
 
             <Dropdown.Menu style={{ minWidth: 370 }}>
