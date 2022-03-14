@@ -37,12 +37,16 @@ const Header = () => {
 
         <Nav>
           <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic" alignRight>
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic"
+              className="dropdown-menu-right"
+            >
               <FaShoppingCart />
               <Badge className="bg-badge">{cart.length}</Badge>
             </Dropdown.Toggle>
 
-            <Dropdown.Menu style={{ minWidth: 370 }}>
+            <Dropdown.Menu style={{ minWidth: 370, right: 0, left: "auto" }}>
               {cart.length > 0 ? (
                 <>
                   {cart.map((cartItem) => (

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Button, ListGroup } from "react-bootstrap";
+import { Button, Col, Form, ListGroup, Row } from "react-bootstrap";
 import { CartState } from "../context/Context";
+import Rating from "./Rating";
+import "./style.css";
 
 const Cart = () => {
   const {
@@ -21,9 +23,40 @@ const Cart = () => {
     <div className="home">
       <div className="product-container">
         <ListGroup>
-          {cart.map((product) => {
-            <span>{product.name}</span>;
-          })}
+          {cart.map((product) => (
+            <ListGroup.Item key={product.id}>
+              <Row>
+                <Col md={2}>
+                  <span>{product.name}</span>
+                </Col>
+                <Col md={2}>
+                  <span>{product.price}</span>
+                </Col>
+                <Col md={2}>
+                  <Rating rating={product.ratings} />
+                </Col>
+                <Col md={2}>
+                  <Form.Control
+                    as="select"
+                    value={product.qty}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "CHANGE_CART_QTY",
+                        payload: {
+                          id: product.id,
+                          qty: e.target.value,
+                        },
+                      })
+                    }
+                  >
+                    {[...Array(product.inStock).keys()].map((x) => (
+                      <option key={x + 1}>{x + 1}</option>
+                    ))}
+                  </Form.Control>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+          ))}
         </ListGroup>
       </div>
       <div className="filters summary">
