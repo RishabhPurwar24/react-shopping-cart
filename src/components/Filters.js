@@ -74,6 +74,12 @@ const Filters = () => {
           name="group1"
           type="checkbox"
           id={`inline-4`}
+          onChange={() =>
+            productDispatch({
+              type: "FILTER_BY_DELIVERY",
+            })
+          }
+          checked={byFastDelivery}
         />
       </span>
 
@@ -81,13 +87,13 @@ const Filters = () => {
         <label style={{ paddingRight: 10 }}>Rating:</label>
         <Rating
           rating={byRating}
-          style={{ cursor: "pointer" }}
-          onClick={(i) =>
+          onClick={(i) => {
             productDispatch({
               type: "FILTER_BY_RATING",
               payload: i + 1,
-            })
-          }
+            });
+          }}
+          style={{ cursor: "pointer" }}
         />
       </span>
 
