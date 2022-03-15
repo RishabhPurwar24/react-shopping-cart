@@ -41,7 +41,7 @@ const Context = ({ children }) => {
 
 export default Context;
 
-// Consume state values
+// Consume state values in child components
 export const CartState = () => {
   return useContext(Cart);
 };
