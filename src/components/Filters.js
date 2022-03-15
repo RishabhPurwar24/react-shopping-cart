@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form } from "react-bootstrap";
+import { CartState } from "../context/Context";
 import Rating from "./Rating";
 
 const Filters = () => {
-  const [rating, setRating] = useState(0);
+  // const [rating, setRating] = useState(0);
 
-  const starData = (i) => {
-    setRating(i);
-  };
+  // const starData = (i) => {
+  //   setRating(i);
+  // };
+
+  const {
+    productDispatch,
+    productState: { byStock, byFastDelivery, sort, byRating },
+  } = CartState();
 
   return (
     <div className="filters">
@@ -19,6 +25,13 @@ const Filters = () => {
           name="group1"
           type="radio"
           id={`inline-1`}
+          onChange={() =>
+            productDispatch({
+              type: "SORT_BY_PRICE",
+              payload: "lowToHigh",
+            })
+          }
+          checked={sort === "lowToHigh" ? true : false}
         />
       </span>
       <span>
@@ -28,6 +41,13 @@ const Filters = () => {
           name="group1"
           type="radio"
           id={`inline-2`}
+          onChange={() =>
+            productDispatch({
+              type: "SORT_BY_PRICE",
+              payload: "highToLow",
+            })
+          }
+          checked={sort === "highToLow" ? true : false}
         />
       </span>
 
@@ -38,6 +58,12 @@ const Filters = () => {
           name="group1"
           type="checkbox"
           id={`inline-3`}
+          onChange={() =>
+            productDispatch({
+              type: "FILTER_BY_STOCK",
+            })
+          }
+          checked={byStock}
         />
       </span>
 
@@ -54,13 +80,27 @@ const Filters = () => {
       <span>
         <label style={{ paddingRight: 10 }}>Rating:</label>
         <Rating
-          rating={rating}
+          rating={byRating}
           style={{ cursor: "pointer" }}
-          starData={starData}
+          onClick={(i) =>
+            productDispatch({
+              type: "FILTER_BY_RATING",
+              payload: i + 1,
+            })
+          }
         />
       </span>
 
-      <Button variant="light">Clear Filters</Button>
+      <Button
+        variant="light"
+        onClick={() =>
+          productDispatch({
+            type: "CLEAR_FILTERS",
+          })
+        }
+      >
+        Clear Filters
+      </Button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Button, Col, Form, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
+import { AiFillDelete } from "react-icons/ai";
 import { CartState } from "../context/Context";
 import Rating from "./Rating";
 import "./style.css";
@@ -26,6 +27,10 @@ const Cart = () => {
           {cart.map((product) => (
             <ListGroup.Item key={product.id}>
               <Row>
+                <Col md={2}>
+                  <Image src={product.image} alt={product.name} fluid rounded />
+                </Col>
+
                 <Col md={2}>
                   <span>{product.name}</span>
                 </Col>
@@ -53,6 +58,21 @@ const Cart = () => {
                       <option key={x + 1}>{x + 1}</option>
                     ))}
                   </Form.Control>
+                </Col>
+
+                <Col md={2}>
+                  <Button
+                    type="button"
+                    variant="light"
+                    onClick={() =>
+                      dispatch({
+                        type: "REMOVE_FROM_CART",
+                        payload: product,
+                      })
+                    }
+                  >
+                    <AiFillDelete fontSize="20px" />
+                  </Button>
                 </Col>
               </Row>
             </ListGroup.Item>
